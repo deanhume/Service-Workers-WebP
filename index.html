@@ -2,9 +2,16 @@
 <html>
  <head>
   <meta charset="UTF-8">
+   <meta http-equiv="CH-Accept" value="DPR, Viewport-Width, Width">
   <title>title</title>
  </head>
  <body>
-  
+<picture>
+  	<source media="(min-width: 50em)" sizes="50vw" srcset="/images/1024/tiger.jpg">
+  	<source media="(min-width: 640px)" srcset="/images/640/tiger.jpg">
+	<img sizes="100vw" src="/images/320/tiger.jpg">
+</picture>
+
+<script src="service-worker.js"></script>
  </body>
 </html>
