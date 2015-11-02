@@ -1,4 +1,6 @@
- // Register the service worker
+"use strict";
+
+// Register the service worker
 if ('serviceWorker' in navigator) {
 	navigator.serviceWorker.register('./service-worker.js').then(function(registration) {
     // Registration was successful
@@ -18,46 +20,32 @@ self.addEventListener('fetch', function(event) {
   	// Check if the image is a jpeg
   	if (/\.jpg$|.png$/.test(event.request.url)) {
 
-  		var dpr = 1;
-  		var supportsWebp = false;
+  		// Get all of the headers
+  		let headers = Array.from(req.headers.entries());
 
-		// Check the headers
-		for (entry of req.headers.entries()) { 
-			
-			// Check the accept header
-			if (entry[0].toLowerCase() == 'accept' && entry[1].toLowerCase().includes('webp'))
-			{
-				supportsWebp = true;
-			}
+  		// Inspect the accept header for WebP support
+  		var acceptHeader = headers.find(item => item == 'accept');
+  		var supportsWebp = acceptHeader.includes('webp');
 
-			// Check the client hints header
-			if (entry[0].toLowerCase() == 'dpr')
-			{
-				dpr = 2;
-			}
+  		// Inspect the headers for DPR
+  		var dpr = headers.find(item => item == 'dpr');
+
+  		// If we support WebP and have a high DPR
+  		if (supportsWebp && dpr > 1)
+  		{
+  			returnUrl = req.url.substr(0, req.url.lastIndexOf(".")) + "-" + dpr + "x.webp";
+  		}
+
+  		// Else if we only support WebP
+  		if (supportsWebp)
+  		{
+			returnUrl = req.url.substr(0, req.url.lastIndexOf(".")) + ".webp";
 		}
 
-		if (supportsWebp)
-		{
-			var returnUrl;
-
-			// If we have a high DPR then change path
-			if (dpr > 1)
-			{
-				returnUrl = req.url.substr(0, req.url.lastIndexOf(".")) + "-" + dpr + "x.webp";
-			}
-			else{
-				// Just return the normal webp url
-				returnUrl = req.url.substr(0, req.url.lastIndexOf(".")) + ".webp";
-			}
-
-			console.log(returnUrl);
-
-			event.respondWith(
-				fetch(returnUrl, {
-					mode: 'no-cors'
-				})
-			);
-		}
+		event.respondWith(
+			fetch(returnUrl, {
+				mode: 'no-cors'
+			})
+		);
 	}
 });
