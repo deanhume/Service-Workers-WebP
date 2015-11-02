@@ -6,11 +6,19 @@
   <title>title</title>
  </head>
  <body>
-<picture>
-  	<source media="(min-width: 50em)" sizes="50vw" srcset="./images/1024/tiger.jpg">
-  	<source media="(min-width: 640px)" srcset="./images/640/tiger.jpg">
-	<img sizes="100vw" src="./images/320/tiger.jpg">
-</picture>
+    <picture>
+    	<source
+    		media="(min-width: 1024px)"
+    		srcset="/images/brooklyn.jpg, /images/brooklyn-2x.jpg 2x, /images/brooklyn-3x.jpg 3x"
+    		type="image/jpeg">
+    	<source
+    		media="(min-width: 1024px)"
+    		srcset="/images/brooklyn.webp, /images/brooklyn-2x.webp 2x, /images/brooklyn-3x.webp 3x"
+    		type="image/webp">
+    		<!-- The fallback image -->
+    	<img
+    		src="/images/brooklyn.jpg" alt="Brooklyn Bridge - New York">
+    </picture>
 
  <script src="./service-worker.js"></script>
  </body>
