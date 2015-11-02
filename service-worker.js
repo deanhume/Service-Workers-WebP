@@ -16,27 +16,17 @@ self.addEventListener('fetch', function(event) {
   		var acceptHeader = headers.find(item => item[0] == 'accept');
   		var supportsWebp = acceptHeader[1].includes('webp');
 
-  		// Inspect the headers for DPR
-  		var dprHeader = headers.find(item => item[0] == 'dpr');
-  		var dpr = dprHeader[1];
-
-  		// If we support WebP and have a high DPR
-  		var returnUrl;
-  		if (supportsWebp && dpr > 1)
-  		{
-  			returnUrl = req.url.substr(0, req.url.lastIndexOf(".")) + "-" + dpr + "x.webp";
-  		}
-
-  		// Else if we only support WebP
+  		// If we support WebP
   		if (supportsWebp)
   		{
-			returnUrl = req.url.substr(0, req.url.lastIndexOf(".")) + ".webp";
-		}
+        // Build the return URL
+  			var returnUrl = req.url.substr(0, req.url.lastIndexOf(".")) + ".webp";
 
-		event.respondWith(
-			fetch(returnUrl, {
-				mode: 'no-cors'
-			})
-		);
+          event.respondWith(
+          fetch(returnUrl, {
+            mode: 'no-cors'
+          })
+        );
+  	}
 	}
 });
