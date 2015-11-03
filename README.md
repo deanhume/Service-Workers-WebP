@@ -3,4 +3,6 @@ Images play an important role on the web today. Imagine a world without images o
 
 ![WebP Images and Service Workers](http://a43d55f6a02c4be185ce-9cfa4cf7c673a59966ad8296f4c88804.r44.cf3.rackcdn.com/WebP/logo-webp.png)
 
-For information on this example, checkout my blog over at [deanhume.com](http://deanhume.com/Home/BlogPost/service-workers--dynamic-responsive-images-using-webp-images/10132)
+For information on this example, checkout my blog over at [deanhume.com](http://deanhume.com/Home/BlogPost/service-workers--dynamic-responsive-images-using-webp-images/10132).
+
+If you'd like to see a demo of this in action, head over to [deanhume.github.io/Service-Workers-WebP](https://deanhume.github.io/Service-Workers-WebP/)
