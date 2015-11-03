@@ -2,16 +2,30 @@
 <html>
  <head>
   <meta charset="UTF-8">
-   <meta http-equiv="CH-Accept" value="DPR, Viewport-Width, Width">
+   <meta http-equiv="Accept-CH" content="DPR, Width, Viewport-Width">
   <title>title</title>
  </head>
  <body>
-<picture>
-  	<source media="(min-width: 50em)" sizes="50vw" srcset="/images/1024/tiger.jpg">
-  	<source media="(min-width: 640px)" srcset="/images/640/tiger.jpg">
-	<img sizes="100vw" src="/images/320/tiger.jpg">
-</picture>
-
- <script src="service-worker.js"></script>
+	<picture>
+		<source
+			media="(min-width: 1024px)"
+			srcset="./images/brooklyn.jpg, ./images/brooklyn-2x.jpg 2x, ./images/brooklyn-3x.jpg 3x"
+			srcset="./images/brooklyn.jpg"
+			type="image/jpeg">
+			<!-- The fallback image -->
+		<img src="./images/brooklyn.jpg" alt="Brooklyn Bridge - New York">
+	</picture>
+	 <script>
+		// Register the service worker
+		if ('serviceWorker' in navigator) {
+			navigator.serviceWorker.register('./service-worker.js').then(function(registration) {
+		    // Registration was successful
+		    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+		}).catch(function(err) {
+		    // registration failed :(
+		    	console.log('ServiceWorker registration failed: ', err);
+		    });
+		}
+	</script>
  </body>
 </html>
